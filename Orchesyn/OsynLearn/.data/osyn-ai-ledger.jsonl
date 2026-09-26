@@ -1,0 +1,8 @@
+{"at":1790073885066,"kind":"writing","clientId":"127.0.0.1","error":"Error: fetch failed"}
+{"at":1790074045815,"kind":"writing","clientId":"127.0.0.1","latencyMs":16,"costUsd":0.00058,"valid":true}
+{"at":1790074055839,"kind":"speaking","clientId":"127.0.0.1","typed":false,"latencyMs":5,"costUsd":0.00058,"valid":true}
+{"at":1790074296848,"kind":"speaking","clientId":"65vqm8i5","typed":true,"latencyMs":7,"costUsd":0.00058,"valid":true}
+{"at":1790074298853,"kind":"speaking","clientId":"65vqm8i5","typed":true,"latencyMs":5,"costUsd":0.00058,"valid":true}
+{"at":1790074467775,"kind":"writing","clientId":"whnwe3om","latencyMs":5,"costUsd":0.00058,"valid":true}
+{"at":1790074470775,"kind":"writing","clientId":"whnwe3om","latencyMs":3,"costUsd":0.00058,"valid":true}
+{"at":1790074523922,"kind":"writing","clientId":"e5v2xldt","latencyMs":4,"costUsd":0.00058,"valid":true}

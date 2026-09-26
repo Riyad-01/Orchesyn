@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ * Dark is the default; .light flips the same variable names so every
+ * component stays theme-agnostic.
+ * ------------------------------------------------------------------ */
+:root,
+.dark {
+  --bg: 7 7 12;
+  --surface: 18 18 27;
+  --surface-2: 27 27 40;
+  --line: 40 40 58;
+  --ink: 244 244 248;
+  --muted: 154 154 176;
+  --faint: 108 108 130;
+
+  --brand: 124 92 255;
+  --brand-soft: 124 92 255;
+  --brand-ink: 255 255 255;
+
+  --accent: 46 230 168;
+  --accent-soft: 46 230 168;
+
+  --warn: 245 165 36;
+  --bad: 244 82 107;
+  --good: 46 230 168;
+
+  color-scheme: dark;
+}
+
+.light {
+  --bg: 248 248 251;
+  --surface: 255 255 255;
+  --surface-2: 241 241 246;
+  --line: 226 226 236;
+  --ink: 18 18 27;
+  --muted: 96 96 118;
+  --faint: 140 140 160;
+
+  --brand: 106 72 240;
+  --brand-soft: 124 92 255;
+  --brand-ink: 255 255 255;
+
+  --accent: 12 168 118;
+  --accent-soft: 46 230 168;
+
+  --warn: 196 122 8;
+  --bad: 214 45 74;
+  --good: 12 168 118;
+
+  color-scheme: light;
+}
+
+* {
+  border-color: rgb(var(--line));
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--ink));
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+
+/* app-like feel on mobile: no rubber-band, no text selection on chrome */
+.app-shell {
+  min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgb(var(--brand) / 0.3);
+}
+
+/* scrollbars that disappear into the surface */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--line)) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--line));
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-line bg-surface shadow-card;
+  }
+
+  .surface-inset {
+    @apply rounded-xl border border-line bg-surface2;
+  }
+
+  .hairline {
+    @apply border-line;
+  }
+
+  /* score colours, used by every ring / bar / chip */
+  .score-good {
+    color: rgb(var(--good));
+  }
+  .score-mid {
+    color: rgb(var(--warn));
+  }
+  .score-bad {
+    color: rgb(var(--bad));
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface2 px-2.5 py-1 text-xs font-medium text-muted;
+  }
+
+  .gradient-brand {
+    background-image: linear-gradient(
+      135deg,
+      rgb(var(--brand)) 0%,
+      rgb(168 92 255) 55%,
+      rgb(46 230 168) 130%
+    );
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(100deg, rgb(var(--brand)) 10%, rgb(var(--accent)) 90%);
+  }
+
+  /* hides the scrollbar but keeps scrolling, for horizontal chip rows */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  .lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  @media (hover: hover) {
+    .lift:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.45);
+    }
+  }
+
+  .fade-up {
+    animation: osyn-fade-up 0.4s ease both;
+  }
+  @keyframes osyn-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pb-safe {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  .tap {
+    @apply active:scale-[0.98] transition-transform duration-100;
+  }
+}
+
+::selection {
+  background: rgb(var(--brand) / 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--brand) / 0.7);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Respect users who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

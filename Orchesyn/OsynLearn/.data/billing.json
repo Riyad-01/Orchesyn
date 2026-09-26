@@ -1,0 +1,182 @@
+{
+  "store": {
+    "processedEventIds": [
+      "evt_co_xc9k78tg_succeeded",
+      "evt_co_xc9k78tg_refunded",
+      "evt_co_hqgbt82x_succeeded",
+      "evt_co_it7zte6s_succeeded",
+      "evt_co_it7zte6s_cancelled",
+      "evt_co_7qw1bv90_succeeded",
+      "evt_co_7qw1bv90_cancelled",
+      "evt_co_4e0m7oar_succeeded",
+      "evt_co_4e0m7oar_cancelled",
+      "evt_co_tfdt0ixw_succeeded",
+      "evt_co_tfdt0ixw_cancelled",
+      "evt_co_yhra5921_succeeded",
+      "evt_co_yhra5921_cancelled"
+    ],
+    "subscriptions": {
+      "learn-1": {
+        "userId": "learn-1",
+        "offer": "prep",
+        "status": "refunded",
+        "periodEnd": "2026-10-22",
+        "history": [
+          {
+            "eventId": "evt_co_xc9k78tg_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-22T11:30:55.898Z",
+            "currency": "BDT"
+          },
+          {
+            "eventId": "evt_co_xc9k78tg_refunded",
+            "type": "charge.refunded",
+            "at": "2026-09-22T11:30:55.997Z",
+            "currency": "BDT"
+          }
+        ],
+        "lastChargeId": "co_xc9k78tg"
+      },
+      "guest": {
+        "userId": "guest",
+        "offer": "prep",
+        "status": "cancelled",
+        "periodEnd": "2026-10-26",
+        "history": [
+          {
+            "eventId": "evt_co_hqgbt82x_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-22T11:45:41.954Z",
+            "currency": "BDT"
+          },
+          {
+            "eventId": "evt_co_it7zte6s_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-22T13:04:30.818Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_it7zte6s_cancelled",
+            "type": "subscription.cancelled",
+            "at": "2026-09-22T13:04:31.652Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_7qw1bv90_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-22T13:08:02.442Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_7qw1bv90_cancelled",
+            "type": "subscription.cancelled",
+            "at": "2026-09-22T13:08:03.281Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_4e0m7oar_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-22T13:15:58.090Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_4e0m7oar_cancelled",
+            "type": "subscription.cancelled",
+            "at": "2026-09-22T13:15:58.971Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_tfdt0ixw_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-22T13:45:33.188Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_tfdt0ixw_cancelled",
+            "type": "subscription.cancelled",
+            "at": "2026-09-22T13:45:34.021Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_yhra5921_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-09-26T06:57:39.688Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_yhra5921_cancelled",
+            "type": "subscription.cancelled",
+            "at": "2026-09-26T06:57:40.550Z",
+            "currency": "USD"
+          }
+        ],
+        "lastChargeId": "co_yhra5921"
+      }
+    }
+  },
+  "checkouts": [
+    {
+      "id": "co_yhra5921",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "USD",
+      "amountLabel": "$9.00 USD",
+      "status": "cancelled",
+      "createdAt": "2026-09-26T06:57:38.939Z"
+    },
+    {
+      "id": "co_tfdt0ixw",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "USD",
+      "amountLabel": "$9.00 USD",
+      "status": "cancelled",
+      "createdAt": "2026-09-22T13:45:32.443Z"
+    },
+    {
+      "id": "co_4e0m7oar",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "USD",
+      "amountLabel": "$9.00 USD",
+      "status": "cancelled",
+      "createdAt": "2026-09-22T13:15:57.343Z"
+    },
+    {
+      "id": "co_7qw1bv90",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "USD",
+      "amountLabel": "$9.00 USD",
+      "status": "cancelled",
+      "createdAt": "2026-09-22T13:08:01.712Z"
+    },
+    {
+      "id": "co_it7zte6s",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "USD",
+      "amountLabel": "$9.00 USD",
+      "status": "cancelled",
+      "createdAt": "2026-09-22T13:04:30.086Z"
+    },
+    {
+      "id": "co_hqgbt82x",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "BDT",
+      "amountLabel": "৳1,143 BDT",
+      "status": "succeeded",
+      "createdAt": "2026-09-22T11:45:41.132Z"
+    },
+    {
+      "id": "co_xc9k78tg",
+      "userId": "learn-1",
+      "offer": "prep",
+      "currency": "BDT",
+      "amountLabel": "৳1,143 BDT",
+      "status": "refunded",
+      "createdAt": "2026-09-22T11:30:55.878Z"
+    }
+  ]
+}

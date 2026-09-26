@@ -1,0 +1,21 @@
+{
+  "name": "OsynLearn",
+  "parent": "Orchesyn",
+  "tagline": "Learn more. Become more.",
+  "colors": {
+    "ink": "#17152A",
+    "violet": "#7046E8",
+    "lilac": "#B7A4FF",
+    "paper": "#F7F5FF",
+    "white": "#FFFFFF"
+  },
+  "format": "Glossy PNG masters and separate flat vector fallbacks",
+  "master_pixel_dimensions": [
+    1932,
+    814
+  ],
+  "extracted_emblem_pixel_dimensions": [
+    477,
+    436
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "summary": {
+    "passed": 39,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "check": "png-readability",
+      "passed": true,
+      "detail": "All PNG files decode."
+    },
+    {
+      "check": "osynlearn-header-light-transparent.png",
+      "passed": true,
+      "detail": "True transparent alpha."
+    },
+    {
+      "check": "osynlearn-tagline-dark-transparent.png",
+      "passed": true,
+      "detail": "True transparent alpha."
+    },
+    {
+      "check": "osynlearn-header-dark-transparent.png",
+      "passed": true,
+      "detail": "True transparent alpha."
+    },
+    {
+      "check": "osynlearn-tagline-light-transparent.png",
+      "passed": true,
+      "detail": "True transparent alpha."
+    },
+    {
+      "check": "vector-flat/osynlearn-mark-black.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "vector-flat/osynlearn-mark-white.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "vector-flat/osynlearn-logo-white.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "vector-flat/osynlearn-logo-black.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "vector-flat/osynlearn-logo-violet.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "vector-flat/osynlearn-mark-violet.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "vector-flat/osynlearn-logo-primary.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "web/favicon.svg",
+      "passed": true,
+      "detail": "SVG paths, no embedded raster."
+    },
+    {
+      "check": "android-resource-xml",
+      "passed": true,
+      "detail": "Resource files parse; app compilation not performed."
+    },
+    {
+      "check": "ios:iphone20x202x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone20x203x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone29x292x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone29x293x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone40x402x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone40x403x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone60x602x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:iphone60x603x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad20x201x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad20x202x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad29x291x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad29x292x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad40x401x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad40x402x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad76x761x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad76x762x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ipad83.5x83.52x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "ios:ios-marketing1024x10241x",
+      "passed": true,
+      "detail": "Correct slot size and opaque background."
+    },
+    {
+      "check": "icon-192.png",
+      "passed": true,
+      "detail": "Manifest path resolves and dimensions match."
+    },
+    {
+      "check": "icon-512.png",
+      "passed": true,
+      "detail": "Manifest path resolves and dimensions match."
+    },
+    {
+      "check": "icon-maskable-192.png",
+      "passed": true,
+      "detail": "Manifest path resolves and dimensions match."
+    },
+    {
+      "check": "safe-area:icon-maskable-192.png",
+      "passed": true,
+      "detail": "Foreground remains within central 40%-radius safe circle."
+    },
+    {
+      "check": "icon-maskable-512.png",
+      "passed": true,
+      "detail": "Manifest path resolves and dimensions match."
+    },
+    {
+      "check": "safe-area:icon-maskable-512.png",
+      "passed": true,
+      "detail": "Foreground remains within central 40%-radius safe circle."
+    },
+    {
+      "check": "ico-frames",
+      "passed": true,
+      "detail": "Four ICO sizes."
+    }
+  ],
+  "visual_review": [
+    "Light and dark logo overview",
+    "Glossy app icon variants"
+  ],
+  "not_tested": [
+    "Native builds",
+    "Live application integration",
+    "App-store submission",
+    "Trademark clearance"
+  ]
+}

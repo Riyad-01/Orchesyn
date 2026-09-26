@@ -1,0 +1,67 @@
+{
+  "name": "OsynLearn — AI English Speaking Coach",
+  "short_name": "OsynLearn",
+  "description": "Speak daily with an AI coach and get instant feedback on pronunciation, fluency, grammar and vocabulary.",
+  "start_url": "/home",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17152A",
+  "theme_color": "#17152A",
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "60-second speech",
+      "short_name": "Speak",
+      "url": "/impromptu",
+      "description": "Start a 60-second impromptu speech"
+    },
+    {
+      "name": "Talk to Sarah",
+      "short_name": "Coach",
+      "url": "/coach",
+      "description": "Start a conversation with the AI coach"
+    },
+    {
+      "name": "IELTS mock",
+      "short_name": "IELTS",
+      "url": "/ielts",
+      "description": "Take a full IELTS speaking mock"
+    }
+  ]
+}
