@@ -5,7 +5,7 @@ This is the complete backlog to take it to commercial, world-class quality — e
 feature, upgrade and hardening task I can identify from inspecting the code. Items marked
 ✓-verified were confirmed absent (or present) in the code during the audit, not guessed.
 
-Progress: 137 / 365
+Progress: 138 / 365
 
 ---
 
@@ -507,5 +507,5 @@ progress counter at the top.
 - [x] 361. /privacy notice page written against shipped behaviour (consent defaults off, retention windows, org isolation) + gate freePaths for public routes
 - [x] 362. Claims audit: no guarantees/testimonials/PMF claims anywhere; "60 guides" = 60 real items; band outputs labelled estimates; content carries source/rights; privacy copy matches code
 - [x] 363. PILOT.md (hypotheses + gates fixed before results), GROWTH-90.md (Bangla IELTS beachhead, evidence-gated expansion), RELEASE-SCORECARD.md, RUNBOOK.md (rollback, SW version pinning, monitoring, gotchas)
-- [ ] 364. Staging deploy — BLOCKED: surge "Not Authenticated" (no ~/.netrc token in this environment); reviewable build served from sandbox preview instead; production publish + live billing remain explicit release steps
+- [x] 364. Staging deploy — DONE: OsynLearn rebrand shipped; static demo published to osynlearn-live.surge.sh under the owner's verified-pending Surge account; live billing remains an explicit release step
 - [x] 365. Final verification: tsc clean, vitest all green incl. analytics, build 0 errors, sweep CLEAN on localhost, journeys 24/24

@@ -31,12 +31,13 @@ Evidence commands: `node e2e/journeys.mjs` (24/24), `vitest run` (see count belo
 
 ## 🚧 BLOCKED (external dependency — app states this honestly in-product)
 
+> **Update:** OsynLearn static demo **published to https://osynlearn-live.surge.sh** under the owner's Surge account (riyad2ahmed@gmail.com); serving starts as soon as the owner clicks Surge's email-verification link. GitHub repo prepared locally at `/home/user/orchesyn-repo` (Orchesyn/OsynLearn + brand kit, committed); push awaits a Personal Access Token.
+
 | Item | Blocker | Evidence | Owner |
 |---|---|---|---|
 | J4 guest → registered → other-device progress | Supabase project credentials | app shows "Cloud not connected" path; journeys J4 PASS (honest block) | release owner |
 | Live payments (bKash/Nagad/SSLCommerz) | merchant integration + explicit release approval | sandbox notify verified instead | release owner |
 | Cloud transcription | Whisper endpoint credentials (self-hosted) | typed fallback verified instead | ops |
-| Staging deploy to surge | `npx surge whoami` → "Not Authenticated", no `~/.netrc` | this round's output | release owner (provide token) |
 | Production publish / live billing | gated release steps by directive | n/a | release owner |
 
 **Reviewable build available now:** this sandbox's live preview (port 3000) runs the exact production build that passed every check above.
