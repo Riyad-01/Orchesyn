@@ -227,7 +227,7 @@ export default function AiTutorPage() {
         toast({ tone: 'warn', title: 'Cloud unavailable', body: `Fell back to the on-device tutor. (${result.error})` });
       }
       if (speakReplies && result.text) {
-        void speak(result.text.replace(/[*_`>#]/g, ''));
+        void speak(result.text.replace(/[*_`>#]/g, ''), { gender: persona.voiceGender });
       }
       setBusy(false);
       abortRef.current = null;
@@ -346,7 +346,12 @@ export default function AiTutorPage() {
             )}
             style={personaId === p.id ? { background: p.color } : undefined}
           >
-            <span>{p.emoji}</span>
+            {p.avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={p.avatar} alt="" className="h-5 w-5 rounded-full object-cover" />
+            ) : (
+              <span>{p.emoji}</span>
+            )}
             {p.name}
           </button>
         ))}
@@ -386,7 +391,12 @@ export default function AiTutorPage() {
       <div ref={scrollerRef} className="flex-1 space-y-4 overflow-y-auto py-2 pr-1">
         {messages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center text-center">
-            <span className="text-4xl">{persona.emoji}</span>
+            {persona.avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={persona.avatar} alt={persona.name} className="h-20 w-20 rounded-2xl object-cover ring-2 ring-line" />
+            ) : (
+              <span className="text-4xl">{persona.emoji}</span>
+            )}
             <h2 className="mt-3 font-display text-lg font-extrabold text-ink">{persona.name}</h2>
             <p className="mt-1 max-w-xs text-sm text-muted">{persona.tagline}. Pick a starter or type anything.</p>
             <div className="mt-5 flex w-full max-w-md flex-col gap-2">
@@ -479,8 +489,13 @@ function Bubble({
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={cn('flex gap-2.5', isUser && 'flex-row-reverse')}>
       {!isUser && (
-        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-sm" style={{ background: `${persona.color}22` }}>
-          {persona.emoji}
+        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-xl text-sm" style={{ background: `${persona.color}22` }}>
+          {persona.avatar ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={persona.avatar} alt="" className="h-full w-full object-cover" />
+          ) : (
+            persona.emoji
+          )}
         </span>
       )}
       <div className={cn('max-w-[80%] min-w-0', isUser && 'flex flex-col items-end')}>
@@ -527,7 +542,7 @@ function Bubble({
             <button onClick={() => onCopy(msg.content)} className="tap rounded-lg p-1.5 text-faint hover:text-muted" title="Copy">
               <Copy className="h-3.5 w-3.5" />
             </button>
-            <button onClick={() => void speak(msg.content.replace(/[*_`>#]/g, ''))} className="tap rounded-lg p-1.5 text-faint hover:text-muted" title="Read aloud">
+            <button onClick={() => void speak(msg.content.replace(/[*_`>#]/g, ''), { gender: persona.voiceGender })} className="tap rounded-lg p-1.5 text-faint hover:text-muted" title="Read aloud">
               <Volume2 className="h-3.5 w-3.5" />
             </button>
             {msg.model ? <span className="ml-1 text-[10px] text-faint">{msg.model}</span> : null}

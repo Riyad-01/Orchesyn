@@ -13,6 +13,10 @@ export interface AiPersona {
   id: string;
   name: string;
   emoji: string;
+  /** Optional character portrait (public path). Shown instead of the emoji where available. */
+  avatar?: string;
+  /** Preferred TTS voice for this persona's replies. Defaults to female (Sarah). */
+  voiceGender?: 'female' | 'male';
   tagline: string;
   color: string;
   focus: PersonaFocus;
@@ -116,9 +120,11 @@ higher-band answer would include.`,
   },
   {
     id: 'interview',
-    name: 'Interview Coach',
+    name: 'Daniel · Interview Coach',
     emoji: '🤝',
-    tagline: 'Job interview practice',
+    avatar: '/brand/daniel-256.png',
+    voiceGender: 'male',
+    tagline: 'Job interview practice with Daniel',
     color: '#FF6B8B',
     focus: 'interview',
     starters: [
@@ -127,7 +133,7 @@ higher-band answer would include.`,
       'Give me a strong answer to "Why should we hire you?"',
     ],
     system: `${LEARNER_RULES}
-You are a job-interview coach. Ask one realistic interview question at a time. After the learner
+You are Daniel, a sharp, encouraging senior interviewer. Ask one realistic interview question at a time. After the learner
 answers, give brief feedback on structure (use STAR for behavioural questions), content, and
 delivery, then a model answer or key phrases. Ask the next question.`,
   },

@@ -7,17 +7,21 @@
  * than hard-code a name that only exists on one OS.
  */
 
+export type VoiceGender = 'female' | 'male';
+
 export interface SpeakOptions {
   rate?: number;
   pitch?: number;
   volume?: number;
+  /** Which coach is talking — picks the best matching installed voice. */
+  gender?: VoiceGender;
   onStart?: () => void;
   onEnd?: () => void;
   onError?: (message: string) => void;
 }
 
 let cachedVoices: SpeechSynthesisVoice[] = [];
-let preferredVoice: SpeechSynthesisVoice | null = null;
+const preferred: Record<VoiceGender, SpeechSynthesisVoice | null> = { female: null, male: null };
 
 export function supported(): boolean {
   return typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -30,7 +34,8 @@ export function loadVoices(): Promise<SpeechSynthesisVoice[]> {
     const read = () => {
       cachedVoices = window.speechSynthesis.getVoices();
       if (cachedVoices.length) {
-        preferredVoice = pickCoachVoice(cachedVoices);
+        preferred.female = pickCoachVoice(cachedVoices, 'female');
+        preferred.male = pickCoachVoice(cachedVoices, 'male');
         resolve(cachedVoices);
         return true;
       }
@@ -52,17 +57,24 @@ export function loadVoices(): Promise<SpeechSynthesisVoice[]> {
  * Score every installed voice and pick the most "coach-like": an English voice,
  * ideally female, ideally a natural/neural one rather than a compact system voice.
  */
-export function pickCoachVoice(voices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+const FEMALE_NAMES = /(female|woman|zira|samantha|karen|serena|kate|fiona|moira|tessa|veena|heera|susan|allison|ava|jenny|aria|libby|sonia|natasha)/;
+const MALE_NAMES = /(male|\bman\b|daniel|ryan|guy|george|james|oliver|thomas|brian|arthur|davis|tony|christopher|liam|aaron|rishi|prabhat|ravi|david|mark|fred|gordon)/;
+
+export function pickCoachVoice(voices: SpeechSynthesisVoice[], gender: VoiceGender = 'female'): SpeechSynthesisVoice | null {
   const english = voices.filter((v) => /^en([-_]|$)/i.test(v.lang));
   const pool = english.length ? english : voices;
   if (!pool.length) return null;
 
+  const wanted = gender === 'male' ? MALE_NAMES : FEMALE_NAMES;
+  const unwanted = gender === 'male' ? FEMALE_NAMES : MALE_NAMES;
+
   const score = (v: SpeechSynthesisVoice) => {
     let s = 0;
     const name = `${v.name} ${v.voiceURI}`.toLowerCase();
-    if (/^en-gb/i.test(v.lang)) s += 3; // OsynLearn's Sarah is British-English
+    if (/^en-gb/i.test(v.lang)) s += 3; // Sarah and Daniel are both British-English
     if (/^en-us/i.test(v.lang)) s += 2;
-    if (/(female|woman|zira|samantha|karen|serena|kate|fiona|moira|tessa|veena|heera|susan|allison|ava|jenny|aria|libby|sonia|natasha)/.test(name)) s += 4;
+    if (wanted.test(name)) s += 5;
+    if (unwanted.test(name)) s -= 5; // never cross-cast when a match exists
     if (/(google|natural|neural|enhanced|premium|siri)/.test(name)) s += 3;
     if (/(compact|eloquence|espeak)/.test(name)) s -= 4;
     if (v.localService) s += 1; // lower latency
@@ -98,7 +110,8 @@ export async function speak(text: string, options: SpeakOptions = {}): Promise<v
     return;
   }
   const voices = await loadVoices();
-  const voice = preferredVoice ?? pickCoachVoice(voices);
+  const gender: VoiceGender = options.gender ?? 'female';
+  const voice = preferred[gender] ?? pickCoachVoice(voices, gender);
 
   window.speechSynthesis.cancel();
   activeUtterances = [];
@@ -111,7 +124,7 @@ export async function speak(text: string, options: SpeakOptions = {}): Promise<v
       if (voice) utterance.voice = voice;
       utterance.lang = voice?.lang ?? 'en-GB';
       utterance.rate = options.rate ?? 1.0;
-      utterance.pitch = options.pitch ?? 1.05;
+      utterance.pitch = options.pitch ?? (gender === 'male' ? 0.98 : 1.05);
       utterance.volume = options.volume ?? 1;
       utterance.onstart = () => {
         if (index === 0) options.onStart?.();
@@ -149,6 +162,6 @@ export function isSpeaking(): boolean {
   return supported() && window.speechSynthesis.speaking;
 }
 
-export function voiceLabel(): string {
-  return preferredVoice?.name ?? 'System voice';
+export function voiceLabel(gender: VoiceGender = 'female'): string {
+  return preferred[gender]?.name ?? 'System voice';
 }

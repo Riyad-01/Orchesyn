@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Briefcase, Ear, Mic, Sparkles } from 'lucide-react';
+import { Ear, Mic, Sparkles } from 'lucide-react';
 import { INTERVIEW_TRACKS, getTrack } from '@/lib/data/interviews';
 import { LiveInterview } from '@/components/interview/live-interview';
 import { Badge, Card, SectionTitle } from '@/components/ui';
@@ -29,12 +29,11 @@ export default function InterviewPage() {
       <div className="relative overflow-hidden rounded-3xl border border-line p-6 sm:p-8" style={{ background: 'linear-gradient(120deg, rgba(217,4,41,.14), rgba(124,92,255,.14) 50%, rgba(6,214,160,.1))' }}>
         <div className="pointer-events-none absolute -right-10 -top-16 h-52 w-52 rounded-full bg-bad/15 blur-3xl" />
         <div className="flex items-center gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-bad/15 text-bad">
-            <Briefcase className="h-6 w-6" />
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/daniel-256.png" alt="Daniel, your interviewer" className="h-14 w-14 rounded-2xl object-cover ring-2 ring-line" />
           <div>
             <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Live Interview</h1>
-            <p className="text-sm text-muted">The first live interview system: it asks out loud, listens, and debriefs you like a real panel.</p>
+            <p className="text-sm text-muted">Meet Daniel, your interviewer: he asks out loud, listens, and debriefs you like a real panel.</p>
           </div>
         </div>
         <div className="mt-5 grid gap-3 sm:grid-cols-3">

@@ -44,11 +44,32 @@ interface ActiveChat {
  * The coach replies by TTS, the user answers by voice, and every user turn gets
  * its own mini feedback strip without breaking the conversational flow.
  */
+const COACHES = {
+  sarah: { id: 'sarah', name: 'Sarah', gender: 'female' as const, avatar: null, blurb: 'Warm, patient, British English' },
+  daniel: { id: 'daniel', name: 'Daniel', gender: 'male' as const, avatar: '/brand/daniel-256.png', blurb: 'Sharp, encouraging, interview-ready' },
+} as const;
+type CoachId = keyof typeof COACHES;
+const COACH_LS_KEY = 'osyn:coach:character';
+
 export default function CoachPage() {
   const { profile, saveCoachSession, toast } = useApp();
   const [tab, setTab] = useState<Mode>('theme');
   const [chat, setChat] = useState<ActiveChat | null>(null);
   const [muted, setMuted] = useState(false);
+  const [coachId, setCoachId] = useState<CoachId>('sarah');
+  const coach = COACHES[coachId];
+
+  /* restore the chosen coach (client-only to avoid hydration mismatch) */
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(COACH_LS_KEY);
+      if (saved === 'daniel' || saved === 'sarah') setCoachId(saved);
+    } catch { /* private mode */ }
+  }, []);
+  const chooseCoach = (id: CoachId) => {
+    setCoachId(id);
+    try { localStorage.setItem(COACH_LS_KEY, id); } catch { /* private mode */ }
+  };
 
   /* ---------------- start / end ---------------- */
   const startTheme = (theme: CoachTheme) => {
@@ -59,7 +80,7 @@ export default function CoachPage() {
       beatIndex: 0, reportIds: [], lastReport: null,
     };
     setChat(next);
-    if (!muted) void speak(theme.starter);
+    if (!muted) void speak(theme.starter, { gender: COACHES[coachId].gender });
   };
 
   const startScenario = (scenario: Scenario) => {
@@ -73,7 +94,7 @@ export default function CoachPage() {
       beatIndex: 1, reportIds: [], lastReport: null,
     };
     setChat(next);
-    if (!muted) void speak(scenario.openingLine);
+    if (!muted) void speak(scenario.openingLine, { gender: COACHES[coachId].gender });
   };
 
   const persist = useCallback(
@@ -144,10 +165,10 @@ export default function CoachPage() {
       };
       setChat(updated);
       void persist(updated);
-      if (!muted) void speak(followUp);
+      if (!muted) void speak(followUp, { gender: COACHES[coachId].gender });
       return updated;
     },
-    [muted, persist],
+    [muted, persist, coachId],
   );
 
   /* ---------------- picker ---------------- */
@@ -155,10 +176,37 @@ export default function CoachPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Chat with Sarah</h1>
+          <h1 className="font-display text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">Chat with {coach.name}</h1>
           <p className="mt-1 text-sm text-muted">
-            A real conversation with live feedback — {ttsSupported() ? 'she talks, you answer' : 'she prompts, you answer'}.
+            A real conversation with live feedback — {ttsSupported() ? 'your coach talks, you answer' : 'your coach prompts, you answer'}.
           </p>
+        </div>
+
+        {/* choose your coach */}
+        <div className="flex gap-3">
+          {(Object.keys(COACHES) as CoachId[]).map((id) => {
+            const c = COACHES[id];
+            const active = coachId === id;
+            return (
+              <button
+                key={id}
+                onClick={() => chooseCoach(id)}
+                className={`tap flex items-center gap-3 rounded-2xl border px-4 py-3 text-left transition-colors ${active ? 'border-brand bg-brand/10' : 'border-line bg-surface hover:border-brand/40'}`}
+                aria-pressed={active}
+              >
+                {c.avatar ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.avatar} alt="" className="h-11 w-11 rounded-full object-cover ring-2 ring-line" />
+                ) : (
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full gradient-brand text-base font-extrabold text-white">S</span>
+                )}
+                <span>
+                  <span className="block text-sm font-extrabold text-ink">{c.name}</span>
+                  <span className="block text-[11px] text-muted">{c.blurb}</span>
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="flex gap-2">
@@ -205,6 +253,7 @@ export default function CoachPage() {
   return (
     <CoachConversation
       chat={chat}
+      coach={coach}
       muted={muted}
       onToggleMute={() => {
         setMuted((m) => {
@@ -222,12 +271,14 @@ export default function CoachPage() {
 
 function CoachConversation({
   chat,
+  coach,
   muted,
   onToggleMute,
   onUserTurn,
   onEnd,
 }: {
   chat: ActiveChat;
+  coach: { name: string; gender: 'female' | 'male'; avatar: string | null };
   muted: boolean;
   onToggleMute: () => void;
   onUserTurn: (text: string, report: FeedbackReport, typed: boolean) => void;
@@ -299,7 +350,7 @@ function CoachConversation({
       {/* messages */}
       <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto rounded-2xl border border-line bg-surface/40 p-4">
         {chat.messages.map((m) => (
-          <MessageBubble key={m.id} message={m} name={chat.theme ? 'Sarah' : chat.scenario?.name ?? 'Sarah'} />
+          <MessageBubble key={m.id} message={m} name={chat.theme ? coach.name : chat.scenario?.name ?? coach.name} avatar={coach.avatar} />
         ))}
         {recording ? (
           <div className="flex justify-end">
@@ -349,7 +400,7 @@ function CoachConversation({
   );
 }
 
-function MessageBubble({ message, name }: { message: ChatMessage; name: string }) {
+function MessageBubble({ message, name, avatar }: { message: ChatMessage; name: string; avatar?: string | null }) {
   if (message.role === 'system') {
     return (
       <div className="flex justify-center">
@@ -360,7 +411,12 @@ function MessageBubble({ message, name }: { message: ChatMessage; name: string }
   if (message.role === 'coach') {
     return (
       <div className="flex items-end gap-2">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full gradient-brand text-sm font-extrabold text-white">S</span>
+        {avatar ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={avatar} alt="" className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-line" />
+        ) : (
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full gradient-brand text-sm font-extrabold text-white">{name.charAt(0)}</span>
+        )}
         <div className="max-w-[80%] rounded-2xl rounded-bl-md border border-line bg-surface px-4 py-3">
           <p className="text-[10px] font-bold uppercase tracking-widest text-brand">{name}</p>
           <p className="mt-1 text-sm leading-relaxed text-ink">{message.text}</p>

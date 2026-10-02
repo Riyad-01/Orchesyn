@@ -13,7 +13,9 @@
       "evt_co_tfdt0ixw_succeeded",
       "evt_co_tfdt0ixw_cancelled",
       "evt_co_yhra5921_succeeded",
-      "evt_co_yhra5921_cancelled"
+      "evt_co_yhra5921_cancelled",
+      "evt_co_hdvsueit_succeeded",
+      "evt_co_hdvsueit_cancelled"
     ],
     "subscriptions": {
       "learn-1": {
@@ -41,7 +43,7 @@
         "userId": "guest",
         "offer": "prep",
         "status": "cancelled",
-        "periodEnd": "2026-10-26",
+        "periodEnd": "2026-11-01",
         "history": [
           {
             "eventId": "evt_co_hqgbt82x_succeeded",
@@ -108,13 +110,34 @@
             "type": "subscription.cancelled",
             "at": "2026-09-26T06:57:40.550Z",
             "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_hdvsueit_succeeded",
+            "type": "checkout.succeeded",
+            "at": "2026-10-02T08:27:55.307Z",
+            "currency": "USD"
+          },
+          {
+            "eventId": "evt_co_hdvsueit_cancelled",
+            "type": "subscription.cancelled",
+            "at": "2026-10-02T08:27:56.160Z",
+            "currency": "USD"
           }
         ],
-        "lastChargeId": "co_yhra5921"
+        "lastChargeId": "co_hdvsueit"
       }
     }
   },
   "checkouts": [
+    {
+      "id": "co_hdvsueit",
+      "userId": "guest",
+      "offer": "prep",
+      "currency": "USD",
+      "amountLabel": "$9.00 USD",
+      "status": "cancelled",
+      "createdAt": "2026-10-02T08:27:54.579Z"
+    },
     {
       "id": "co_yhra5921",
       "userId": "guest",

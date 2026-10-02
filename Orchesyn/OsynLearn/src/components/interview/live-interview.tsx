@@ -201,12 +201,16 @@ export function LiveInterview({ track, onExit }: { track: InterviewTrack; onExit
       {sub === 'ask' ? (
         <Card className="relative overflow-hidden p-6">
           <div className="pointer-events-none absolute -right-10 -top-14 h-44 w-44 rounded-full bg-brand/10 blur-2xl" />
-          <p className="text-xs font-bold uppercase tracking-widest text-brand">{track.emoji} {track.title} · live</p>
+          <div className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/daniel-128.png" alt="" className="h-9 w-9 rounded-full object-cover ring-1 ring-line" />
+            <p className="text-xs font-bold uppercase tracking-widest text-brand">{track.emoji} {track.title} · live · Daniel asks</p>
+          </div>
           <h2 className="mt-3 font-display text-xl font-extrabold leading-snug text-ink sm:text-2xl">“{q.q}”</h2>
           <p className="mt-3 rounded-xl bg-surface2 p-3 text-xs leading-relaxed text-muted">💡 {q.tip}</p>
 
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <Button onClick={() => void speak(q.q, { rate: 0.95 })}>
+            <Button onClick={() => void speak(q.q, { rate: 0.95, gender: 'male' })}>
               <Volume2 className="h-4 w-4" /> hear the question
             </Button>
             {recorder.canRecord ? (

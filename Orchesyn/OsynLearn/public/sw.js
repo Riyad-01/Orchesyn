@@ -7,11 +7,13 @@
  * Audio recording never touches the worker — speech stays on the main thread.
  */
 
-const CACHE = 'osynlearn-v6';
-const STATIC = 'osynlearn-static-v6';
+const CACHE = 'osynlearn-v7';
+const STATIC = 'osynlearn-static-v7';
 /* every app route is precached so the whole product works offline after first visit */
 const PRECACHE = [
   '/brand/mark.png',
+  '/brand/daniel-256.png',
+  '/brand/daniel-128.png',
   '/',
   '/home',
   '/onboarding',
